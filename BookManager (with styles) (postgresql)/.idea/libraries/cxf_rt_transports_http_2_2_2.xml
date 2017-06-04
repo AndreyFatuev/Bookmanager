@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cxf-rt-transports-http-2.2.2">
+    <CLASSES>
+      <root url="jar://D:/cxf-rt-transports-http-2.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

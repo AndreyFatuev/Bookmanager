@@ -1,0 +1,99 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.andrey.shop"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Database Information -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url"
+                  value="jdbc:postgresql://localhost:5432/shhop"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="anddrreeyy112"/>
+    </bean>
+
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.andrey.shop.model.Client</value>
+                <value>com.andrey.shop.model.Product</value>
+                <value>com.andrey.shop.model.Orderr</value>
+                <value>com.andrey.shop.model.Orderr_product</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+
+            <prop key="hibernate.hbm2ddl.auto">update</prop>
+        </props>
+
+        </property>
+    </bean>
+
+    <!--ClientDao and ClientService beans-->
+    <bean id="bookDao" class="com.andrey.shop.dao.ClientDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="clientService" class="com.andrey.shop.service.ClientServiceImpl">
+        <property name="bookDao" ref="bookDao"/>
+    </bean>
+
+    <!--ProductDao and ProductService beans-->
+    <bean id="productDao" class="com.andrey.shop.dao.ProductDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="productService" class="com.andrey.shop.service.ProductServiceImpl">
+        <property name="productDao" ref="productDao"/>
+    </bean>
+
+    <!--OrderrDao and Orderr beans-->
+    <bean id="orderrDao" class="com.andrey.shop.dao.OrderrDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="orderrService" class="com.andrey.shop.service.OrderrServiceImpl">
+        <property name="orderrDao" ref="orderrDao"/>
+    </bean>
+
+  <!--  Orderr_ProductDao and Orderr_ProductService beans-->
+    <bean id="orderr_productDao" class="com.andrey.shop.dao.Orderr_productDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="orderr_productService" class="com.andrey.shop.service.Orderr_productServiceImpl">
+        <property name="orderr_productDaoo" ref="orderr_productDao"/>
+    </bean>
+
+
+
+    <context:component-scan base-package="com.andrey.shop"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
+</beans>

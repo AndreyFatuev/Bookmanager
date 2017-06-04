@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cxf-rt-frontend-jaxws-2.2.3">
+    <CLASSES>
+      <root url="jar://D:/cxf-rt-frontend-jaxws-2.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

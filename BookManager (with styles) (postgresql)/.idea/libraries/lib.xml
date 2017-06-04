@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://D:/SoapServerJava-master/lib/jaxws-api.jar!/" />
+      <root url="jar://D:/SoapServerJava-master/lib/jaxws-rt.jar!/" />
+      <root url="jar://D:/SoapServerJava-master/lib/jaxws-tools.jar!/" />
+      <root url="jar://D:/SoapServerJava-master/lib/jsr181-api.jar!/" />
+      <root url="file://D:/SoapServerJava-master/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://D:/SoapServerJava-master/lib" recursive="false" />
+  </library>
+</component>
